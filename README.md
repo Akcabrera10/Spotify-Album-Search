@@ -1,4 +1,5 @@
-[![Alt Text](https://youtu.be/VtbMVzvN1TA)](<VIDEO_URL>)
+[![Alt Text](https://img.youtube.com/vi/VtbMVzvN1TA/0.jpg)](https://youtu.be/VtbMVzvN1TA)
+
 
 
 # Getting Started with Create React App

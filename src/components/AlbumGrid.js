@@ -27,8 +27,7 @@ function AlbumGrid({ albums, tracks, accessToken }) {
     }
   }, [selectedAlbum]);
   const getDominantColor = (imageData) => {
-    // Implement your logic to extract the dominant color from the image data
-    // For simplicity, let's assume the dominant color is the first pixel's color
+  // This function gets the first pixel of the image to use as the background for the album.
     const r = imageData[0];
     const g = imageData[1];
     const b = imageData[2];

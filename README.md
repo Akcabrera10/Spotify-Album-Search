@@ -1,5 +1,4 @@
-[![Alt Text](https://img.youtube.com/vi/VtbMVzvN1TA/0.jpg)](https://youtu.be/VtbMVzvN1TA)
-
+# This project is currently WIP. A demo is shown below but it does not showcase the final product, just major functionalities of the program.
 
 
 # Getting Started with Create React App

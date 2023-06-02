@@ -1,6 +1,6 @@
 ---
-### This project is currently a work-in-progress. A demo is shown below but it does not showcase the final product, just major functionalities of the program.
-### `I'm currently working on responsiveness and overall appearance of the program`
+### `This project is currently a work-in-progress. A demo is shown below but it does not showcase the final product, just major functionalities of the program.`
+### I'm currently working on responsiveness and overall appearance of the program.
 
 ![Alt Text](https://www.upload.ee/image/15298418/spotify-gif.gif)
 ---

@@ -1,0 +1,370 @@
+.App {
+  overflow-y:scroll;
+  background-color:#191414;
+  height: 100vh; /* Set container to the full height of the viewport */
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+/* Hide all scrollbars */
+::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar in Firefox */
+* {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.logo img {
+  height: 2rem;
+  object-fit: contain;
+  padding-top: 1rem;
+  padding-right:0;
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+.albums {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+  padding-top: 7rem;
+  margin: 0 auto 0;
+  width: 90%;
+  overflow-y: auto;
+  padding-left:2%;
+}
+
+
+.column {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  padding: 2rem;
+  height: 80%;
+  width: 75%;
+  margin-right: -0.5rem;
+}
+
+.card-title {
+  font-weight: bold;
+  margin-top: 10px;
+  font-size: 16px;
+}
+
+img {
+  width: 100%;
+  max-width: 25rem;
+  height: auto;
+  object-fit: cover;
+  margin-bottom: 10px;
+  border-radius: 5px;
+}
+
+.search-bar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: black;
+  padding: 1rem;
+  box-sizing: border-box;
+  z-index: 9999;
+}
+
+.logo {
+
+  align-items: center;
+  color: white;
+  margin-left: 2rem;
+  max-width: 30%; /* adjust this value as needed */
+}
+
+.logo img {
+  height: auto;
+  max-height: 2rem; /* adjust this value as needed */
+  margin-right: 0.5rem;
+}
+
+
+.logoh2{
+  width:1%;
+  color:white;
+  flex:1;
+  padding-left:2rem;
+}
+
+
+.search-bar {
+  position: fixed;
+  top: 0;
+  height:5rem;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: black;
+  padding: 1rem;
+  box-sizing: border-box;
+  z-index: 9999;
+}
+
+.search-bar .logo {
+  display: flex;
+  align-items: center;
+  justify-content: left;
+}
+
+.search-bar .logo h2 {
+  color: white;
+
+}
+
+.search-bar .search-container {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.search-bar .search-container input[type="input"] {
+  padding: 1rem;
+  margin-right: 1rem;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  background-color: #282828;
+  color: white;
+}
+
+.search-bar .search-container button {
+  padding: 1rem;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  background-color: #1db954;
+  color: white;
+  cursor: pointer;
+}
+
+.albums .column:hover{
+  transform: scale(1.1);
+  transition: transform 0.3s ease-out;
+}
+
+.albums .column:hover img {
+  filter: blur(5px);
+}
+
+.popup {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 0;
+  background-color: white;
+  transition: height 0.5s ease-in-out;
+  overflow: hidden;
+  align-items:left;
+  justify-content: left;
+  display:flex;
+  flex-direction:column;
+  transition: height 0.5s ease-out;
+  overflow-y:auto;
+  z-index:99999999
+}
+
+.popup.show {
+  height: 100%;
+  animation: slideUp 0.4s ease-out;
+}
+
+.popup-image{
+  width:15rem;
+  height:15rem;
+}
+
+.popup-text{
+  color:#e1e1e1;
+  padding-left:3rem;
+}
+.popup-title {
+  font-size: 3rem;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.popup-content {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.track-name, .track-number, .track-duration, .track-artists{
+  color:white;
+  font-size:1rem;
+}
+
+.popup-info{
+  position:relative;
+  display:flex;
+  padding-top:5rem;
+
+  padding-left:3rem;
+  padding-bottom:4rem;
+}
+
+button {
+  background-color: #1db954;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-size: 18px;
+}
+
+button:hover {
+  background-color: #0062cc;
+}
+
+.popup-track {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  cursor: pointer;
+  background-color:#181818;
+}
+
+.track-number {
+  margin-right: 10px;
+}
+.popup-tracks-container {
+  flex-grow: 1;
+  background-color: #181818;
+  padding: 10px;
+}
+
+.track-artists{
+  margin-right:5rem;
+  width:15rem;
+}
+
+.track-name {
+  flex-grow: 1;
+  width:5rem;
+}
+
+.track-duration {
+  margin-right:2rem;
+}
+
+.popup-track:hover {
+  background-color: #d1d1d1;
+}
+
+.track-grid {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  grid-gap: 10px;
+  align-items: center;
+}
+.previous-button {
+  position: absolute;
+  top: 1.5rem;
+  left: 2.5rem;
+  z-index: 10;
+}
+
+.round-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: 40px;
+  background-color: black;
+  border: none;
+  border-radius: 50%;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+}
+
+.bbutton {
+  background-color:black;
+  border-radius:0;
+  margin-top:auto;
+}
+
+.bbutton:hover, .round-button:hover{
+  background-color:#1db954;
+}
+.round-button span {
+  font-size: 20px;
+}
+
+
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+
+@keyframes slideUp {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .logoh2{
+    display:none;
+  }
+}
+
+@keyframes float-in {
+  0% {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}

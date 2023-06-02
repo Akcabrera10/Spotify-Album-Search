@@ -1,5 +1,5 @@
 ---
-## This project is currently WIP. A demo is shown below but it does not showcase the final product, just major functionalities of the program.
+### This project is currently WIP. A demo is shown below but it does not showcase the final product, just major functionalities of the program.
 ---
 
 

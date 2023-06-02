@@ -4,7 +4,7 @@
 # Spotify Album Search
 This comprehensive full-stack web development project is centered around leveraging the power of Node.js, Express.js, and React.js to create a seamless connection to the Spotify API. The primary goal of this project is to provide users with the ability to search for albums based on their input and retrieve relevant search results from Spotify's vast music catalog.
 
-### `This project is currently a work-in-progress. A demo is shown below but it does not showcase the final product, just major functionalities of the program.`
+ `This project is currently a work-in-progress. A demo is shown below but it does not showcase the final product, just major functionalities of the program.`
 # Languages and Technologies Used
 
 ### React.js, Node.js, Express.js, APIs

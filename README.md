@@ -12,7 +12,7 @@ This comprehensive full-stack web development project is centered around leverag
 ----
 
 # About this project
-![GIF1](https://www.upload.ee/image/15298418/spotify-gif.gif)
+![GIF1](https://www.upload.ee/image/15301183/spotify.gif)
 
 # The Process
 This project integrates the use React.js for the front-end, then using Express & Node for the back-end. API calls are entirely done in the back-end and displays album results depending on user input on the search function.

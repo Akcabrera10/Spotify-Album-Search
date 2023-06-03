@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
 
 
-function SearchBar({ searchInput, setSearchInput, search }) {
+function SearchBar({ searchInput, setSearchInput, search, currentSongName }) {
 
   const [fadeIn, setFadeIn] = useState(false);
-
+  
 useEffect(() => {
   const timer = setTimeout(() => {
     setFadeIn(true);
-  }, 2000);
+  }, 1500);
 
   return () => {
     clearTimeout(timer);

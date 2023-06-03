@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+let urlTemp;
 
 function AlbumGrid({ albums, tracks, accessToken }) {
   const [selectedAlbum, setSelectedAlbum] = useState(null);
@@ -8,6 +9,7 @@ function AlbumGrid({ albums, tracks, accessToken }) {
   const [currentAudio, setCurrentAudio] = useState(null);
   const [imageColor, setImageColor] = useState('');
   const [currentSongName, setCurrentSongName] = useState('');
+
 
   useEffect(() => {
     if (selectedAlbum) {
@@ -27,6 +29,18 @@ function AlbumGrid({ albums, tracks, accessToken }) {
     }
   }, [selectedAlbum]);
 
+  const handleClose = () => {
+    console.log("Close pressed");
+    if (currentAudio) {
+      currentAudio.pause();
+      setCurrentAudio(null);
+      setCurrentPreview(null);
+      setCurrentSongName('');
+    }
+    setSelectedAlbum(null);
+  };
+  
+
   // This function gets the first pixel of the image to use as the background for the album.
   const getDominantColor = (imageData) => {
   // This function gets the first pixel of the image to use as the background for the album.
@@ -44,6 +58,7 @@ function AlbumGrid({ albums, tracks, accessToken }) {
   };
 
   const handlePreviewPlay = (previewUrl, spotifyUrl, trackIndex) => {
+    
     if (currentAudio) {
       currentAudio.pause();
       setCurrentAudio(null);
@@ -115,11 +130,11 @@ function AlbumGrid({ albums, tracks, accessToken }) {
           <div className="popup-info" style={{ backgroundColor: imageColor }}>
             <div className="popup-image-container">
               <div className="previous-button">
-                <button className="round-button" onClick={() => setSelectedAlbum(null)}>
+                <button className="round-button" onClick={() => handleClose()}>
                   <span>&lt;</span>
                 </button>
                 <div className="pause-button">
-                  <button className="round-button" onClick={() => handlePause(true)}>
+                  <button className="round-button" onClick={() => handlePause()}>
                     <span>II</span>
                   </button>
                 </div>
@@ -131,7 +146,9 @@ function AlbumGrid({ albums, tracks, accessToken }) {
               <div className="popup-content"> {selectedAlbum.artists[0].name}</div>
               <div className="popup-content">Total tracks: {selectedAlbum.total_tracks}</div>
               {currentSongName && (
-                <div className="popup-track">Currently playing: {currentSongName}</div>
+                <div className="popup-track" onClick={() => window.open(urlTemp, '_blank')}>
+                Currently playing: {currentSongName}
+              </div>
               )}
             </div>
           </div>
@@ -146,18 +163,18 @@ function AlbumGrid({ albums, tracks, accessToken }) {
                 <span className="track-number">
                   {currentPreview === track.preview_url ? '>' : index + 1 + '.'}
                 </span>
-                <span
-                  className="track-name"
-                  onClick={() => handlePreviewPlay(track.preview_url, track.external_urls.spotify, index)}
-                >
+                <span className="track-name"
+                  onClick={() =>{ urlTemp = track.external_urls.spotify; handlePreviewPlay(track.preview_url, track.external_urls.spotify, index);}}>
                   {track.name}
                 </span>
+                
                 <span className="track-artists">{track.artists[0].name}</span>
                 <span className="track-duration">{formatTrackDuration(track.duration_ms)}</span>
               </div>
             ))}
+            
           </div>
-          <button className="bbutton" onClick={() => setSelectedAlbum(null)}>
+          <button className="bbutton" onClick={handleClose}>
             Close
           </button>
         </div>

@@ -7,6 +7,7 @@ import axios from 'axios';
 
 
 function App() {
+  const [currentSongName, setCurrentSongName] = useState('');
   const [searchInput, setSearchInput] = useState('');
   const [accessToken, setAccessToken] = useState('');
   const [albums, setAlbums] = useState([]);
@@ -50,8 +51,8 @@ async function search() {
 
   return (
     <div className="App">
-    {!searchPerformed && <Welcome searchInput={searchInput} setSearchInput={setSearchInput}search={search}/>}
-    <SearchBar searchInput={searchInput} setSearchInput={setSearchInput}search={search} />
+    {!searchPerformed && <Welcome searchInput={searchInput} setSearchInput={setSearchInput}search={search} currentSongName={currentSongName}/>}
+    <SearchBar searchInput={searchInput} setSearchInput={setSearchInput}search={search} setCurrentSongName={setCurrentSongName} currentSongName={currentSongName} />
     <AlbumGrid albums={albums} tracks = {tracks} accessToken = {accessToken}/>
     </div>
     );

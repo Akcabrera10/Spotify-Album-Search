@@ -29,6 +29,7 @@ function AlbumGrid({ albums, tracks, accessToken }) {
 
   // This function gets the first pixel of the image to use as the background for the album.
   const getDominantColor = (imageData) => {
+  // This function gets the first pixel of the image to use as the background for the album.
     const r = imageData[0];
     const g = imageData[1];
     const b = imageData[2];

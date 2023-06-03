@@ -12,21 +12,39 @@
   
   .welcome-box {
     background-color: black;
-    width:50%;
-    height:50%;
+    width:40%;
+    height:30%;
     margin-top:5rem;
     border-radius: 10px;
     text-align: center;
+    opacity: 0;
+    transition: opacity 0.5s ease;
   }
+
   
   .ptext{
     color:white;
     font-size:2rem;
-    margin: 5rem 2rem;
+    font-family: 'Gotham-Light', sans-serif;
+    margin: 2rem 3rem;
+    opacity: 0;
+    animation: fadeAndTranslate 0.5s;
   }
+
+  .fade-in {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
   .welcome-text {
     color: white;
     font-size:3rem;
+    font-family: 'Gotham-Light', sans-serif;
+    transition: opacity 0.5s ease;
+  }
+
+  .welcome-text.fade-in {
+    opacity: 1;
   }
 
   .search-input{
@@ -39,3 +57,17 @@
     color: white;
   }
 
+  .search-container1{
+    animation: fadeAndTranslate 0.5s;
+  }
+
+  @keyframes fadeAndTranslate {
+    0% {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }

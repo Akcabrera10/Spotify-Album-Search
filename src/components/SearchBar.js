@@ -1,8 +1,23 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+
 
 function SearchBar({ searchInput, setSearchInput, search }) {
+
+  const [fadeIn, setFadeIn] = useState(false);
+
+useEffect(() => {
+  const timer = setTimeout(() => {
+    setFadeIn(true);
+  }, 2000);
+
+  return () => {
+    clearTimeout(timer);
+  };
+}, []);
+
   return (
-    <div className="search-bar">
+    <>
+    {fadeIn && (<div className="search-bar">
       <div className="logo">
         <img src="/icons/spotify.png" alt="Logo"/>
       </div>
@@ -18,9 +33,11 @@ function SearchBar({ searchInput, setSearchInput, search }) {
           }}
           onChange={(event) => setSearchInput(event.target.value)}
         />
-        <button onClick={() => { if (searchInput) search(); }}>Search</button>
+        <button className ="on" onClick={() => { if (searchInput) search(); }}>Search</button>
       </div>
     </div>
+  )}
+  </>
   );
 }
 

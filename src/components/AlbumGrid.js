@@ -1,13 +1,13 @@
-import {useState, useEffect} from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
-function AlbumGrid({ albums, tracks, accessToken }) {
 
+function AlbumGrid({ albums, tracks, accessToken }) {
   const [selectedAlbum, setSelectedAlbum] = useState(null);
   const [albumTracks, setAlbumTracks] = useState([]);
   const [currentPreview, setCurrentPreview] = useState(null);
   const [currentAudio, setCurrentAudio] = useState(null);
   const [imageColor, setImageColor] = useState('');
-
+  const [currentSongName, setCurrentSongName] = useState('');
 
   useEffect(() => {
     if (selectedAlbum) {
@@ -26,9 +26,9 @@ function AlbumGrid({ albums, tracks, accessToken }) {
       };
     }
   }, [selectedAlbum]);
+
+  // This function gets the first pixel of the image to use as the background for the album.
   const getDominantColor = (imageData) => {
-    // Implement your logic to extract the dominant color from the image data
-    // For simplicity, let's assume the dominant color is the first pixel's color
     const r = imageData[0];
     const g = imageData[1];
     const b = imageData[2];
@@ -38,33 +38,42 @@ function AlbumGrid({ albums, tracks, accessToken }) {
   const formatTrackDuration = (durationMs) => {
     const minutes = Math.floor(durationMs / 60000); // Divide by 60000 to get minutes
     const seconds = Math.floor((durationMs % 60000) / 1000); // Get the remaining seconds
-  
+
     return `${minutes}:${seconds.toString().padStart(2, '0')}`; // Format the time as "M:SS"
   };
 
-  const handlePreviewPlay = (previewUrl, spotifyUrl) => {
+  const handlePreviewPlay = (previewUrl, spotifyUrl, trackIndex) => {
     if (currentAudio) {
       currentAudio.pause();
+      setCurrentAudio(null);
+      setCurrentPreview(null);
+      setCurrentSongName('');
     }
-
-    setCurrentPreview(previewUrl);
 
     if (previewUrl) {
       const audio = new Audio(previewUrl);
       setCurrentAudio(audio);
+      setCurrentPreview(previewUrl);
+      setCurrentSongName(albumTracks[trackIndex].name);
       audio.play();
     } else {
       window.open(spotifyUrl, '_blank');
     }
   };
 
+  const handlePause = () => {
+    if (currentAudio) {
+      currentAudio.pause();
+      setCurrentAudio(null);
+      setCurrentPreview(null);
+      setCurrentSongName('');
+    }
+  };
 
   const handleAlbumClick = async (album) => {
     setSelectedAlbum(album);
     try {
-      const response = await axios.get(
-        `http://localhost:8000/album-tracks/${album.id}`
-      );
+      const response = await axios.get(`http://localhost:8000/album-tracks/${album.id}`);
       const data = response.data;
       console.log(data.tracks);
       setAlbumTracks(data.tracks);
@@ -72,7 +81,7 @@ function AlbumGrid({ albums, tracks, accessToken }) {
       console.error('Error fetching album tracks:', error);
     }
   };
-  
+
   let temp;
 
   return (
@@ -102,41 +111,55 @@ function AlbumGrid({ albums, tracks, accessToken }) {
       })}
       {selectedAlbum && (
         <div className={`popup${selectedAlbum ? ' show' : ''}`}>
-        <div className="popup-info" style={{ backgroundColor: imageColor }}>
-          <div className="popup-image-container">
-          <div className="previous-button">
-          <button className="round-button" onClick={() => setSelectedAlbum(null)}>
-            <span>&lt;</span>
-          </button>`
-        </div>
-            <img className="popup-image" src={selectedAlbum.images[0].url} alt={selectedAlbum.name} />
+          <div className="popup-info" style={{ backgroundColor: imageColor }}>
+            <div className="popup-image-container">
+              <div className="previous-button">
+                <button className="round-button" onClick={() => setSelectedAlbum(null)}>
+                  <span>&lt;</span>
+                </button>
+                <div className="pause-button">
+                  <button className="round-button" onClick={() => handlePause(true)}>
+                    <span>II</span>
+                  </button>
+                </div>
+              </div>
+              <img className="popup-image" src={selectedAlbum.images[0].url} alt={selectedAlbum.name} />
+            </div>
+            <div className="popup-text">
+              <div className="popup-title">{selectedAlbum.name}</div>
+              <div className="popup-content"> {selectedAlbum.artists[0].name}</div>
+              <div className="popup-content">Total tracks: {selectedAlbum.total_tracks}</div>
+              {currentSongName && (
+                <div className="popup-track">Currently playing: {currentSongName}</div>
+              )}
+            </div>
           </div>
-          
-          <div className="popup-text">
-            <div className="popup-title">{selectedAlbum.name}</div>
-            <div className="popup-content">Total tracks: {selectedAlbum.total_tracks}</div>
+          <div className="popup-track">
+            <span className="track-name">&nbsp;&nbsp;Title</span>
+            <span className="track-artists">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Artist</span>
+            <span className="track-duration">Duration</span>
           </div>
+          <div className="popup-tracks-container">
+            {albumTracks.map((track, index) => (
+              <div key={track.id} className="popup-track">
+                <span className="track-number">
+                  {currentPreview === track.preview_url ? '>' : index + 1 + '.'}
+                </span>
+                <span
+                  className="track-name"
+                  onClick={() => handlePreviewPlay(track.preview_url, track.external_urls.spotify, index)}
+                >
+                  {track.name}
+                </span>
+                <span className="track-artists">{track.artists[0].name}</span>
+                <span className="track-duration">{formatTrackDuration(track.duration_ms)}</span>
+              </div>
+            ))}
+          </div>
+          <button className="bbutton" onClick={() => setSelectedAlbum(null)}>
+            Close
+          </button>
         </div>
-        <div className = "popup-track">
-        <span className="track-name">&nbsp;&nbsp;Title</span>
-        <span className="track-artists">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Artist</span>
-        <span className="track-duration">Duration</span>
-        </div>
-
-        <div className="popup-tracks-container">
-    {albumTracks.map((track, index) => (
-      <div key={track.id} className="popup-track">
-        <span className="track-number">{index + 1}.</span>
-        <span className="track-name" onClick={() => handlePreviewPlay(track.preview_url, track.external_urls.spotify)}>{track.name}</span>
-        <span className="track-artists">{track.artists[0].name}</span>
-        <span className="track-duration">{formatTrackDuration(track.duration_ms)}</span>
-      </div>
-    ))}
-  </div>
-
-  <button className="bbutton" onClick={() => setSelectedAlbum(null)}>Close</button>
-</div>
-     
       )}
     </div>
   );

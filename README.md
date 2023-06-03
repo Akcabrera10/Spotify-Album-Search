@@ -7,7 +7,7 @@ This comprehensive full-stack web development project is centered around leverag
  `This project is currently a work-in-progress. A demo is shown below but it does not showcase the final product.`
 # Languages and Technologies Used
 
-### React.js, Node.js, Express.js, APIs
+### HTML, CSS, JavaScript, React.js, Node.js, Express.js, APIs
 
 ----
 
